@@ -4,7 +4,7 @@ JavaScript で Cocoaプログラミング
 
 #理屈
 
-OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラップしたJSクラスを用いている
+OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラッピングしたJSクラスを提供している。
 
 ##構成
 
@@ -23,7 +23,7 @@ packjsでビルドした出力ファイル。
 
 ##実行方法
 
-コマンドラインで以下を実行することでコンパイル・実行が可能
+コマンドラインで以下を実行することでコンパイル・実行が可能。
 
 ```bash
 cd /(path_to_jsco)/jsco
