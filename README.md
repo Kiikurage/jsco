@@ -2,6 +2,8 @@
 
 JavaScript で Cocoaプログラミング
 
+![https://raw.githubusercontent.com/kikura-yuichiro/jsco/master/screenshot.png]
+
 #理屈
 
 OSX 10.10 Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラッピングしたJSクラスを提供している。
