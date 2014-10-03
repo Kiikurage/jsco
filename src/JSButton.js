@@ -17,8 +17,8 @@ ObjC.import('Cocoa');
                         title = param.title || "",
                         top = param.top || 0,
                         left = param.left || 0,
-                        width = param.width || 600,
-                        height = param.height || 400,
+                        width = param.width || 100,
+                        height = param.height || 20,
                         bezelStyle = param.bezelStyle || $.NSRoundedBezelStyle,
                         buttonType = param.buttonType || $.NSMomentaryLightButton;
 

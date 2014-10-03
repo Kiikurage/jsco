@@ -27,8 +27,6 @@ var window = $.JSWindow.alloc.init({
 var button = $.JSButton.alloc.init({
     left: 50,
     top: 50,
-    width: 100,
-    height: 20,
     title: 'Push to exit application.'
 });
 button.target = $.AppDelegate.alloc.init;
