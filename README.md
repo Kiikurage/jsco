@@ -2,7 +2,7 @@
 
 JavaScript で Cocoaプログラミング
 
-![https://raw.githubusercontent.com/kikura-yuichiro/jsco/master/screenshot.png]
+!(https://raw.githubusercontent.com/kikura-yuichiro/jsco/master/screenshot.png)
 
 #理屈
 
