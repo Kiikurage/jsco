@@ -1,6 +1,7 @@
 /*
  *  @include ../src/JSWindow.js
  *  @include ../src/JSButton.js
+ *  @include ../src/JSTextView.js
  */
 ObjC.import('Cocoa');
 
@@ -24,6 +25,15 @@ var window = $.JSWindow.alloc.init({
     title: 'JSCO Sample'
 });
 
+var textview = $.JSTextView.alloc.init({
+    left: 50,
+    top: 80,
+    string: 'Hello World!'
+});
+textview.alignCenter(this);
+textview.setBackgroundColor($.NSColor.colorWithRedGreenBlueAlpha(0, 0, 0, 0));
+window.contentView.addSubview(textview);
+
 var button = $.JSButton.alloc.init({
     left: 50,
     top: 50,
@@ -31,5 +41,4 @@ var button = $.JSButton.alloc.init({
 });
 button.target = $.AppDelegate.alloc.init;
 button.action = 'btnClickHandler';
-
 window.contentView.addSubview(button);
