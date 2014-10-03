@@ -1,10 +1,8 @@
 ObjC.import('Cocoa');
 (function() {
-    var DEFAULT_STYLE_MASK = $.NSTitledWindowMask | $.NSClosableWindowMask | $.NSMiniaturizableWindowMask;
-
     ObjC.registerSubclass({
-        name: 'KWindow',
-        superclass: 'NSWindow',
+        name: 'JSButton',
+        superclass: 'NSButton',
         properties: {
             left: 'Int',
             top: 'Int',
@@ -21,17 +19,16 @@ ObjC.import('Cocoa');
                         left = param.left || 0,
                         width = param.width || 600,
                         height = param.height || 400,
-                        styleMask = param.styleMask || DEFAULT_STYLE_MASK;
+                        bezelStyle = param.bezelStyle || $.NSRoundedBezelStyle,
+                        buttonType = param.buttonType || $.NSMomentaryLightButton;
 
-                    var _this = ObjC.super(this).initWithContentRectStyleMaskBackingDefer(
-                        $.NSMakeRect(left, top, width, height),
-                        styleMask,
-                        $.NSBackingStoreBuffered,
-                        false
+                    var _this = ObjC.super(this).initWithFrame(
+                        $.NSMakeRect(left, top, width, height)
                     );
 
                     _this.title = title;
-                    _this.makeKeyAndOrderFront(_this);
+                    _this.bezelStyle = bezelStyle;
+                    _this.buttonType = buttonType;
 
                     return _this
                 }

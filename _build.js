@@ -4,7 +4,7 @@ ObjC.import('Cocoa');
     var DEFAULT_STYLE_MASK = $.NSTitledWindowMask | $.NSClosableWindowMask | $.NSMiniaturizableWindowMask;
 
     ObjC.registerSubclass({
-        name: 'KWindow',
+        name: 'JSWindow',
         superclass: 'NSWindow',
         properties: {
             left: 'Int',
@@ -91,7 +91,7 @@ ObjC.import('Cocoa');
 ObjC.import('Cocoa');
 (function() {
     ObjC.registerSubclass({
-        name: 'KButton',
+        name: 'JSButton',
         superclass: 'NSButton',
         properties: {
             left: 'Int',
@@ -175,8 +175,8 @@ ObjC.import('Cocoa');
     });
 }());
 /*
- *  @include ./KWindow.js
- *  @include ./KButton.js
+ *  @include ./JSWindow.js
+ *  @include ./JSButton.js
  */
 ObjC.import('Cocoa');
 
@@ -192,36 +192,12 @@ ObjC.registerSubclass({
     }
 });
 
-ObjC.registerSubclass({
-    name: "MyNotification",
-    methods: {
-        "userNotificationCenter:shouldPresentNotification:": {
-            types: ["bool", ["id", "id"]],
-            implementation: function(center, notification) {
-                return true;
-            }
-        }
-    }
-});
-
-var myNotification = $.MyNotification.alloc.init;
-
-$.NSUserNotificationCenter.defaultUserNotificationCenter.delegate = myNotification;
-
-function showNotification(title, msg) {
-    var notification = $.NSUserNotification.alloc.init;
-    notification.title = title;
-    notification.informativeText = msg;
-    notification.soundName = $.NSUserNotificationDefaultSoundName;
-    $.NSUserNotificationCenter.defaultUserNotificationCenter.deliverNotification(notification);
-}
-
 var window = $.KWindow.alloc.init({
     left: 200,
     top: 100,
     width: 200,
     height: 120,
-    title: 'KLibrary Sample'
+    title: 'JSCO Sample'
 });
 
 var button = $.KButton.alloc.init({
@@ -229,7 +205,7 @@ var button = $.KButton.alloc.init({
     top: 50,
     width: 100,
     height: 20,
-    title: 'Push Me!'
+    title: 'Push to exit application.'
 });
 button.target = $.AppDelegate.alloc.init;
 button.action = 'btnClickHandler';

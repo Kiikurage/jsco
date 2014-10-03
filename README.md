@@ -4,7 +4,7 @@ JavaScript で Cocoaプログラミング
 
 #理屈
 
-OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いている。
+OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラップしたJSクラスを用いている
 
 ##構成
 
@@ -12,7 +12,7 @@ OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機
 
 エントリポイント
 
-###K~~~.js
+###JS~~~.js
 
 ライブラリファイル。packjsでパックして用いる。
 packjsについては、[こちら](https://github.com/kikura-yuichiro/packjs)を参照。
@@ -27,7 +27,7 @@ packjsでビルドした出力ファイル。
 
 ```bash
 cd /(path_to_jsco)/jsco
-rm -rf ./_build.app;
-osacompile -l JavaScript -s -x -o ./_build.app _build.js;
+rm -rf ./_build.app
+osacompile -l JavaScript -s -x -o ./_build.app _build.js
 open ./_build.app
 ```
