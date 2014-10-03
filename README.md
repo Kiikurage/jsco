@@ -1,33 +1,31 @@
-#JSCO
+#jsco
 
 JavaScript で Cocoaプログラミング
 
 #理屈
 
-OSX 10.10Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラッピングしたJSクラスを提供している。
+OSX 10.10 Yosemiteで実装された、JavascriptをAppleScriptに変換する機能を用いる。JavaScriptで記述しやすいよう、CocoaクラスをラッピングしたJSクラスを提供している。
 
 ##構成
 
-###main.js
-
-エントリポイント
-
-###JS~~~.js
+###src
 
 ライブラリファイル。packjsでパックして用いる。
 packjsについては、[こちら](https://github.com/kikura-yuichiro/packjs)を参照。
+利用方法はsample/sample.jsを参照。
 
-###_build.js
+###sample
 
-packjsでビルドした出力ファイル。
+サンプルアプリ。コンパイル済み。
 
-##実行方法
+##コンパイル方法
 
-コマンドラインで以下を実行することでコンパイル・実行が可能。
+例えば、サンプルアプリの場合、以下のコマンドでコンパイル・実行が可能。
 
 ```bash
-cd /(path_to_jsco)/jsco
-rm -rf ./_build.app
-osacompile -l JavaScript -s -x -o ./_build.app _build.js
-open ./_build.app
+cd /(path_to_jsco_folder)/sample
+rm -r ./sample/sample.app
+packjs ./sample/sample.js ./sample/sample_packed.js
+osacompile -l JavaScript -s -x -o ./sample/sample.app ./sample/sample_packed.js
+open ./sample/sample.app
 ```

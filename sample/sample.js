@@ -1,6 +1,6 @@
 /*
- *  @include ./JSWindow.js
- *  @include ./JSButton.js
+ *  @include ../src/JSWindow.js
+ *  @include ../src/JSButton.js
  */
 ObjC.import('Cocoa');
 
@@ -16,7 +16,7 @@ ObjC.registerSubclass({
     }
 });
 
-var window = $.KWindow.alloc.init({
+var window = $.JSWindow.alloc.init({
     left: 200,
     top: 100,
     width: 200,
@@ -24,7 +24,7 @@ var window = $.KWindow.alloc.init({
     title: 'JSCO Sample'
 });
 
-var button = $.KButton.alloc.init({
+var button = $.JSButton.alloc.init({
     left: 50,
     top: 50,
     width: 100,
