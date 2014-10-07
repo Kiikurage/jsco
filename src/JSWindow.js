@@ -1,89 +1,56 @@
+/**
+ *	@include ./JSContainerView.js
+ */
+
 ObjC.import('Cocoa');
-(function() {
-    var DEFAULT_STYLE_MASK = $.NSTitledWindowMask | $.NSClosableWindowMask | $.NSMiniaturizableWindowMask;
 
-    ObjC.registerSubclass({
-        name: 'JSWindow',
-        superclass: 'NSWindow',
-        properties: {
-            left: 'Int',
-            top: 'Int',
-            width: 'Int',
-            height: 'Int'
-        },
-        methods: {
-            'init:': {
-                types: ['id', ['NSDictionary']],
-                implementation: function(param) {
-                    var param = ObjC.deepUnwrap(param) || {},
-                        title = param.title || "",
-                        top = param.top || 0,
-                        left = param.left || 0,
-                        width = param.width || 600,
-                        height = param.height || 400,
-                        styleMask = param.styleMask || DEFAULT_STYLE_MASK;
+function JSWindow(param) {
+    var title, x, y, width, height, resizable, closable, typeMask;
 
-                    var _this = ObjC.super(this).initWithContentRectStyleMaskBackingDefer(
-                        $.NSMakeRect(left, top, width, height),
-                        styleMask,
-                        $.NSBackingStoreBuffered,
-                        false
-                    );
+    param = param || {},
+    title = param.title || 'JSWindow',
+    x = parseInt(param.x) || 0,
+    y = parseInt(param.y) || 0,
+    width = parseInt(param.width) || 500,
+    height = parseInt(param.height) || 500,
+    resizable = param.resizable == null ? true : !!param.resizable;
+    closable = param.closable == null ? true : !!param.closable;
 
-                    _this.title = title;
-                    _this.makeKeyAndOrderFront(_this);
+    typeMask = $.NSTitledWindowMask;
+    if (resizable) {
+        typeMask |= $.NSResizableWindowMask
+    }
+    if (closable) {
+        typeMask |= $.NSClosableWindowMask
+    }
 
-                    return _this
-                }
-            },
-            'left': {
-                types: ['Int', []],
-                implementation: function() {
-                    return this.frame.origin.x;
-                }
-            },
-            'setLeft:': {
-                types: ['void', ['Int']],
-                implementation: function(left) {
-                    this.setFrameOrigin($.NSMakePoint(left, this.top));
-                }
-            },
-            'top': {
-                types: ['Int', []],
-                implementation: function() {
-                    return this.frame.origin.y;
-                }
-            },
-            'setTop:': {
-                types: ['void', ['Int']],
-                implementation: function(top) {
-                    this.setFrameOrigin($.NSMakePoint(this.left, top));
-                }
-            },
-            'width': {
-                types: ['Int', []],
-                implementation: function() {
-                    return this.frame.size.width;
-                }
-            },
-            'setWidth:': {
-                types: ['void', ['Int']],
-                implementation: function(width) {
-                    this.setFrameDisplay($.NSMakeRect(this.left, this.top, width, this.height), true);
-                }
-            },
-            'height': {
-                types: ['Int', []],
-                implementation: function() {
-                    return this.frame.size.height;
-                }
-            },
-            'setHeight:': {
-                types: ['void', ['Int']],
-                implementation: function(height) {
-                    this.setFrameDisplay($.NSMakeRect(this.left, this.top, this.width, height), true);
-                }
-            }
-        }
-    });
-}());
+    this.cocoa_ = $.NSWindow.alloc.initWithContentRectStyleMaskBackingDefer(
+        $.NSMakeRect(x, y, width, height),
+        typeMask,
+        $.NSBackingStoreBuffered,
+        false
+    );
+
+    this.cocoa_.title = title;
+    this.cocoa_.makeKeyAndOrderFront(this.cocoa_);
+}
+inherit(JSWindow, JSContainerView);
+
+JSWindow.prototype.setFrame = function(param) {
+    var frame = this.getFrame();
+
+    if ('x' in param) frame.origin.x = param.x;
+    if ('y' in param) frame.origin.y = param.y;
+    if ('width' in param) frame.size.width = param.width;
+    if ('height' in param) frame.size.height = param.height;
+
+    this.cocoa_.setFrameDisplay(frame, true);
+};
+
+JSWindow.prototype.append = function(child) {
+    this.cocoa_.contentView.addSubview(child.cocoa_);
+};
+
+JSWindow.prototype.getChildren = function() {
+    return this.cocoa_.contentView.subviews.js;
+};

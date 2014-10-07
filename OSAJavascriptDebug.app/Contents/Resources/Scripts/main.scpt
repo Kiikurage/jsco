@@ -1,4 +1,4 @@
-
+JsOsaDAS1.001.00bplist00ÑVscript_"
 function inherit(subClass, superClass) {
     var __ = function() {};
     __.prototype = new superClass();
@@ -333,4 +333,4 @@ ObjC.registerSubclass({
             }
         }
     }
-});
+});                              ""jscr  úÞÞ­

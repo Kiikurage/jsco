@@ -1,0 +1,3 @@
+#!/bin/bash
+
+osacompile -l JavaScript -s -x -o $2 $1

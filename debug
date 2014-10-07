@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pkill -9 'OSAJavascriptDebug'
+rm -rf ./OSAJavascriptDebug.app
+`dirname $0`/compile $1 ./OSAJavascriptDebug.app
+open ./OSAJavascriptDebug.app

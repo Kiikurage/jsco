@@ -1,44 +1,74 @@
 /*
- *  @include ../src/JSWindow.js
- *  @include ../src/JSButton.js
- *  @include ../src/JSTextView.js
+ *  @include ../src/jsco.js
  */
-ObjC.import('Cocoa');
 
 ObjC.registerSubclass({
-    name: "AppDelegate",
+    name: 'AppDelegate',
+    superclass: 'JSAppDelegate',
     methods: {
-        "btnClickHandler": {
-            types: ["void", ["id"]],
-            implementation: function(sender) {
-                $.NSApplication.sharedApplication.terminate(this);
+        'applicationDidFinishLaunching': {
+            types: ['void', []],
+            implementation: function () {
+                var window = new JSWindow({
+                    width: 500,
+                    height: 250,
+                    x: 200,
+                    y: 250,
+                    title: 'Notepad Sample',
+                    resizable: false
+                });
+
+                var saveBtn = new JSButton({
+                    width: 60,
+                    height: 30,
+                    x: 360,
+                    y: 215,
+                    title: 'Save'
+                });
+                saveBtn.cocoa_.target = this;
+                saveBtn.cocoa_.action = 'saveBtnDidClicked';
+                saveBtn.appendTo(window);
+
+                var label = new JSTextLabel({
+                    width: 300,
+                    height: 30,
+                    x: 30,
+                    y: 210,
+                    value: 'Input something, and Push \'Save\' button.'
+                });
+                label.appendTo(window);
+
+                var labelState = new JSTextLabel({
+                    width: 60,
+                    height: 30,
+                    x: 420,
+                    y: 210,
+                    value: 'Saved.',
+                    align: JSTextLabel.Align.Right,
+                    color: $.NSColor.blueColor
+                });
+                labelState.appendTo(window);
+
+                var field = new JSTextField({
+                    width: 500,
+                    height: 210,
+                    x: 0,
+                    y: 0
+                });
+                field.appendTo(window);
+
+                var userDefault = $.NSUserDefaults.standardUserDefaults;
+                field.cocoa_.setStringValue(userDefault.stringForKey('value'));
+            }
+        },
+        'saveBtnDidClicked': {
+            types: ['void', ['id']],
+            implementation: function (sender) {
+                var userDefault = $.NSUserDefaults.standardUserDefaults;
+
+                userDefault.setObjectForKey(field.cocoa_.stringValue, 'value');
+                userDefault.synchronize;
             }
         }
     }
 });
-
-var window = $.JSWindow.alloc.init({
-    left: 200,
-    top: 100,
-    width: 200,
-    height: 120,
-    title: 'JSCO Sample'
-});
-
-var textview = $.JSTextView.alloc.init({
-    left: 50,
-    top: 80,
-    string: 'Hello World!'
-});
-textview.alignCenter(this);
-textview.setBackgroundColor($.NSColor.colorWithRedGreenBlueAlpha(0, 0, 0, 0));
-window.contentView.addSubview(textview);
-
-var button = $.JSButton.alloc.init({
-    left: 50,
-    top: 50,
-    title: 'Push to exit application.'
-});
-button.target = $.AppDelegate.alloc.init;
-button.action = 'btnClickHandler';
-window.contentView.addSubview(button);
